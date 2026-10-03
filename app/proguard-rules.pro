@@ -1,13 +1,17 @@
-# Proguard / R8 rules for LiteWebView
-
-# Keep NanoHTTPD classes and interfaces
+# NanoHTTPD
 -keep class fi.iki.elonen.** { *; }
--dontwarn fi.iki.elonen.**
+-keep class org.nanohttpd.** { *; }
 
-# Keep JavaScript interfaces for WebView if needed
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface <methods>;
+# Keep our app classes
+-keep class com.liteweb.extractor.** { *; }
+
+# Standard Android
+-keepattributes Signature
+-keepattributes *Annotation*
+
+# Remove debug logging in release
+-assumenosideeffects class android.util.Log {
+    public static *** d(...);
+    public static *** v(...);
+    public static *** i(...);
 }
-
-# AndroidX Core
--dontwarn androidx.**

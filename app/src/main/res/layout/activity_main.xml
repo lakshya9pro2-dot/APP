@@ -4,16 +4,59 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/bg_light">
+    android:background="@color/background">
 
-    <!-- Top Control Panel (Lite Dashboard) -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/controlCard"
+    <!-- Toolbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/surface"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:elevation="4dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/liteModeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!-- Progress bar (sits below toolbar) -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:progressTint="@color/accent" />
+
+    <!-- WebView fills most of the screen -->
+    <com.liteweb.extractor.webview.LiteWebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Bottom control panel -->
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardElevation="3dp"
-        app:cardCornerRadius="0dp"
-        app:cardBackgroundColor="@color/card_bg">
+        android:background="@color/surface"
+        android:fillViewport="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,7 +64,136 @@
             android:orientation="vertical"
             android:padding="12dp">
 
-            <!-- Title & Panel Collapse Toggle -->
+            <!-- URL input row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="8dp">
+
+                <EditText
+                    android:id="@+id/urlInput"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:hint="@string/url_hint"
+                    android:textColor="@color/text_primary"
+                    android:textColorHint="@color/text_secondary"
+                    android:background="@drawable/input_bg"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:inputType="textUri"
+                    android:imeOptions="actionGo"
+                    android:singleLine="true"
+                    android:textSize="13sp" />
+
+                <Button
+                    android:id="@+id/btnOpenWebsite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/btn_open"
+                    android:textSize="13sp"
+                    android:backgroundTint="@color/accent"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp" />
+            </LinearLayout>
+
+            <!-- HLS status row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <View
+                    android:id="@+id/hlsStatusDot"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/dot_red"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/hls_label"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/hlsStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hls_not_detected"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
+            </LinearLayout>
+
+            <!-- Server status row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <View
+                    android:id="@+id/serverStatusDot"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/dot_red"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/server_label"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/serverStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/server_stopped"
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Server address + copy -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:id="@+id/serverAddress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/accent"
+                    android:textSize="12sp"
+                    android:fontFamily="monospace" />
+
+                <Button
+                    android:id="@+id/btnCopyServer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="@string/btn_copy"
+                    android:textSize="11sp"
+                    android:backgroundTint="@color/surface_variant"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp" />
+            </LinearLayout>
+
+            <!-- Lite Mode toggle -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,199 +201,20 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:id="@+id/tvAppTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/app_name"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_main" />
+                    android:text="@string/lite_mode_label"
+                    android:textColor="@color/text_primary"
+                    android:textSize="13sp" />
 
-                <TextView
-                    android:id="@+id/btnTogglePanel"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchLiteMode"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="[ Hide Panel ]"
-                    android:textSize="12sp"
-                    android:textColor="@color/primary"
-                    android:padding="4dp" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
-            <!-- Collapsible Body -->
-            <LinearLayout
-                android:id="@+id/panelBody"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp">
-
-                <!-- URL Input + Open Button -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
-
-                    <EditText
-                        android:id="@+id/etUrl"
-                        android:layout_width="0dp"
-                        android:layout_height="44dp"
-                        android:layout_weight="1"
-                        android:background="@color/bg_light"
-                        android:hint="@string/url_hint"
-                        android:inputType="textUri"
-                        android:imeOptions="actionGo"
-                        android:maxLines="1"
-                        android:paddingHorizontal="10dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_main" />
-
-                    <Button
-                        android:id="@+id/btnOpen"
-                        android:layout_width="wrap_content"
-                        android:layout_height="44dp"
-                        android:layout_marginStart="8dp"
-                        android:text="@string/open_website"
-                        android:textSize="12sp"
-                        android:backgroundTint="@color/primary" />
-                </LinearLayout>
-
-                <!-- Status Rows -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="8dp">
-
-                    <!-- HLS Status Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="3dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="HLS Status: "
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:textColor="@color/text_main" />
-
-                        <TextView
-                            android:id="@+id/tvHlsStatus"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/hls_not_detected"
-                            android:textSize="13sp"
-                            android:textColor="@color/status_gray"
-                            android:ellipsize="middle"
-                            android:singleLine="true" />
-
-                        <Button
-                            android:id="@+id/btnCopyHls"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="32dp"
-                            android:text="Copy HLS"
-                            android:textSize="11sp"
-                            android:textColor="@color/primary"
-                            android:visibility="gone" />
-                    </LinearLayout>
-
-                    <!-- NanoHTTPD Status Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="3dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="NanoHTTPD: "
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:textColor="@color/text_main" />
-
-                        <TextView
-                            android:id="@+id/tvServerStatus"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/server_running"
-                            android:textSize="13sp"
-                            android:textColor="@color/status_green" />
-
-                        <Button
-                            android:id="@+id/btnCopyServer"
-                            style="?android:attr/borderlessButtonStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="32dp"
-                            android:text="@string/copy_address"
-                            android:textSize="11sp"
-                            android:textColor="@color/primary" />
-                    </LinearLayout>
-
-                    <!-- Lite Mode Switch Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:paddingVertical="2dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lite_mode"
-                            android:textStyle="bold"
-                            android:textSize="13sp"
-                            android:textColor="@color/text_main" />
-
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switchLiteMode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="true" />
-                    </LinearLayout>
-                </LinearLayout>
-
-            </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- Page Loading Progress Bar -->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:visibility="gone"
-        android:progressTint="@color/primary" />
-
-    <!-- Container for WebView & Fullscreen HTML5 Video View -->
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <FrameLayout
-            android:id="@+id/fullscreenContainer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#000000"
-            android:visibility="gone" />
-    </FrameLayout>
+    </ScrollView>
 
 </LinearLayout>

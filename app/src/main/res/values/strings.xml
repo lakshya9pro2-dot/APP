@@ -1,14 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">LiteWebView</string>
+    <string name="app_name">LiteWeb Extractor</string>
     <string name="url_hint">https://example.com</string>
-    <string name="open_website">Open Website</string>
-    <string name="hls_status_title">HLS Status</string>
+    <string name="btn_open">Open</string>
+    <string name="btn_copy">Copy</string>
+    <string name="hls_label">HLS:</string>
     <string name="hls_not_detected">● Not detected</string>
-    <string name="hls_detected">● HLS Detected</string>
-    <string name="server_title">NanoHTTPD</string>
+    <string name="hls_detecting">● Scanning…</string>
+    <string name="hls_detected">● %1$s</string>
+    <string name="server_label">NanoHTTPD:</string>
     <string name="server_running">● Running :8080</string>
     <string name="server_stopped">● Stopped</string>
-    <string name="lite_mode">Lite Mode</string>
-    <string name="copy_address">Copy URL</string>
-    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="lite_mode_label">Lite Mode</string>
+    <string name="lite_mode_on">ON</string>
+    <string name="lite_mode_off">OFF</string>
 </resources>
